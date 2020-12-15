@@ -41,19 +41,22 @@ Vector::~Vector()
 Vector& Vector::operator=(Vector &other)
 /* copies the members of "other vector" to the current one */
 {
+    //creates a new pointer to old array and deletes old array
     double *trash = _arr;
     delete[] trash;
 
+    //creates all new members for Vector Class
     _arr = new double[other.capacity()];
     _maxCount = other._maxCount;
     _count = other._count;
 
+    //copies the array from the "other" vector to the new one
     for (int i = 0; i < _count; i++)
     {
         _arr[i] = other._arr[i];
     } 
 
-    return *this;
+    return *this; 
 }
 
 bool Vector::operator==(Vector &other)
@@ -105,29 +108,30 @@ void Vector::push_back(double item)
 /*  appends item to the vector. if the vector is full 
 the vector's space is doubled and the vector is updated*/
 {
-    if (_count < _maxCount) 
+    if (_count < _maxCount) //if array is not full
     {
         _arr[_count] = item;
     }
 
-    else
+    else //if array is full
     {
-        _maxCount = _maxCount*2;
+        _maxCount = _maxCount*2; //makes capacity double the old capacity
 
+        //creates a new pointer to old array and new array
         double *trash = _arr;
         _arr = new double[_maxCount];
         
-        for (int i = 0; i < _count; i++) //loops through the old array and copies the 
-                                               //old array items to the new array 
+        //copies items from old array to new one
+        for (int i = 0; i < _count; i++)
         {
             _arr[i] = trash[i];
         }
 
-        _arr[_count] = item;
+        _arr[_count] = item; //puts the item at the end of the array
         delete[] trash;
     }
 
-    _count++;
+    _count++; 
 }
 
 void Vector::changeValeAt(double newVal, int index)
@@ -141,30 +145,38 @@ that are both specified by the input parameters. */
 void Vector::resize(int space)
 /* resets the _maxCount to specified int from the input. */
 {
-    if (space < _maxCount && space > 0)
+    if (space < _maxCount && space > 0) //input is less than capacity
     {
+        //creates a new pointer to old array and new array
         double *trash = _arr;
         _arr = new double[space];
+
         _count = space;
         _maxCount = space;
+
+        //copies needed items from old array to new one
         for (int i = 0; i < space; i++)
         {
             _arr[i] = trash[i];
         }
         delete[] trash;
     }
-    else if (space == _count)
+    else if (space == _count && space < _maxCount) //input is less than capacity and is number of items
     {
+        //creates a new pointer to old array and new array
         double *trash = _arr;
         _arr = new double[space];
+
         _maxCount = space;
+
+        //copies items from old array to new one
         for (int i = 0; i < _count; i++)
         {
             _arr[i] = trash[i];
         }
         delete[] trash;
     }
-    else
+    else //input is less than 0
     {
         throw runtime_error("Invalid input. Input must be greater then 0.");
     }
@@ -177,9 +189,13 @@ is less then the current _maxCount then nothing is changed. */
 {
     if (space > _maxCount)
     {
+        //creates a new pointer to old array and new array
         double *trash = _arr;
         _arr = new double[space];
+
         _maxCount = space;
+
+        //copying old array to the new one
         for (int i = 0; i < _count; i++)
         {
             _arr[i] = trash[i];

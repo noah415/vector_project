@@ -44,14 +44,16 @@ using namespace std;
 
 int main()
 {
-    char command;
-    char choice;
-    int startCap;
+    char command; //creates a variable for the command inputs 
+    char choice; //creates variable for the initial question (helps exit the program)
+    int startCap; //starting capacity of the vector
 
+    //prompts user if they want to proceed
     cout << "\ndo you want to create a vector? (y/n): ";
     cin >> choice;
     if (choice == 'n') return 0;
 
+    //prompts user if they wich to choose a capacity for vector
     cout << "do you want to choose the capacity of your vector? (y/n): ";
     cin >> choice;
     if (choice == 'y')
@@ -66,10 +68,11 @@ int main()
             cin >> startCap;
         }
     }
-    else startCap = 50;
+    else startCap = 50; //default capacity for Vector is 50
 
-    Vector vector(startCap);
+    Vector vector(startCap); //creates a Vector
 
+    //do-while loop for input commands (manipulation and display of created Vector)
     do {
         
         cout << "\n\ncommands:\n\tpush_(b)ack" << endl << "\t(r)eserve" << endl << "\tre(s)ize" << endl
@@ -81,7 +84,8 @@ int main()
 
         cin >> command;
 
-        if (command == 'b')
+        //push_back command
+        if (command == 'b') 
         {
             double input;
             cout << "input (double): ";
@@ -89,6 +93,8 @@ int main()
 
             vector.push_back(input);
         }
+
+        //reserve command
         else if (command == 'r')
         {
             int input;
@@ -96,6 +102,8 @@ int main()
             cin >> input;
             vector.reserve(input);
         }
+
+        //resize command
         else if (command == 's')
         {
             int input;
@@ -110,6 +118,8 @@ int main()
                 cerr << e.what() << '\n';
             }
         }
+
+        //valuAt command
         else if (command == 'v')
         {
             int input;
@@ -125,6 +135,8 @@ int main()
                 cerr << e.what() << '\n';
             }
         }
+
+        //changeValeAt command
         else if (command == 'c')
         {
             double input1;
@@ -146,7 +158,7 @@ int main()
         }
 
 
-    } while(command != 'l');
+    } while(command != 'l'); //if input command is 'l', break out of loop
     
     return 0;
 }
