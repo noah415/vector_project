@@ -58,6 +58,13 @@ int main()
     {
         cout << "input capacity (int): ";
         cin >> startCap;
+
+        while (startCap < 0)
+        {
+            cout << "Invalid input. Capacity must be greater than or equal to 0.\n";
+            cout << "input capacity (int): ";
+            cin >> startCap;
+        }
     }
     else startCap = 50;
 
@@ -94,14 +101,29 @@ int main()
             int input;
             cout << "input space (int): ";
             cin >> input;
-            vector.resize(input);
+            try
+            {
+                vector.resize(input);
+            }
+            catch(runtime_error e)
+            {
+                cerr << e.what() << '\n';
+            }
         }
         else if (command == 'v')
         {
             int input;
             cout << "input index (int): ";
             cin >> input;
-            cout << "value at index " << input << " is " << vector.valuAt(input) << endl;
+            try
+            {
+                double value = vector.valuAt(input);
+                cout << "value at index " << input << " is " << value << endl;
+            }
+            catch(runtime_error e)
+            {
+                cerr << e.what() << '\n';
+            }
         }
         else if (command == 'c')
         {
@@ -111,7 +133,16 @@ int main()
             cin >> input1;
             cout << "input index (int): ";
             cin >> input2;
-            vector.changeValeAt(input1, input2);
+            try
+            {
+                vector.changeValeAt(input1, input2);
+            }
+            catch(runtime_error e)
+            {
+                cerr << e.what() << '\n';
+            }
+            
+            
         }
 
 

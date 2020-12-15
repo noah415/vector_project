@@ -22,7 +22,7 @@ Sets the maxCount to input and sets the capacity of the array
 pointer to the given input.*/
 {
     //cout << "created vector with " << maxCount << " space\n"; //for testing
-
+    if (_maxCount < 0) throw runtime_error("Invalid input. Capacity should be greater than or equal to 0.");
     _maxCount = maxCount;
     _count = 0;
     _arr = new double[maxCount];
@@ -57,6 +57,8 @@ Vector& Vector::operator=(Vector &other)
 }
 
 bool Vector::operator==(Vector &other)
+/* compares each member of each Vector to each other.
+if something is not the same then return False */
 {
     if (_count != other._count || _maxCount != other._maxCount) return false;
 
@@ -93,12 +95,15 @@ double Vector::valuAt(int index)
 /* returns the double value of the item at index 
 inputed in the Vector */
 {
-    return _arr[index];
+
+    if (index >= _count || index < 0) throw runtime_error("Invalid input. Input must be the index of a valid item.");
+    else return _arr[index];
+    
 }
 
 void Vector::push_back(double item)
-/*  if the Vector is not full:
-        append item to the vector*/
+/*  appends item to the vector. if the vector is full 
+the vector's space is doubled and the vector is updated*/
 {
     if (_count < _maxCount) 
     {
@@ -126,11 +131,15 @@ void Vector::push_back(double item)
 }
 
 void Vector::changeValeAt(double newVal, int index)
+/* Changes value at index in the Vector with a new double
+that are both specified by the input parameters. */
 {
-    _arr[index] = newVal;
+    if (index >= _count || index < 0) throw runtime_error("Invalid input. Input must be the index of a valid item.");
+    else _arr[index] = newVal;
 }
 
 void Vector::resize(int space)
+/* resets the _maxCount to specified int from the input. */
 {
     if (space < _maxCount && space > 0)
     {
@@ -144,7 +153,7 @@ void Vector::resize(int space)
         }
         delete[] trash;
     }
-    else
+    else if (space == _count)
     {
         double *trash = _arr;
         _arr = new double[space];
@@ -155,9 +164,16 @@ void Vector::resize(int space)
         }
         delete[] trash;
     }
+    else
+    {
+        throw runtime_error("Invalid input. Input must be greater then 0.");
+    }
+    
 }
 
 void Vector::reserve(int space)
+/* only purpose is to add capacity to the Vector. If the input
+is less then the current _maxCount then nothing is changed. */
 {
     if (space > _maxCount)
     {
