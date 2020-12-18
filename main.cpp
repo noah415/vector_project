@@ -46,7 +46,7 @@ int main()
 {
     char command; //creates a variable for the command inputs 
     char choice; //creates variable for the initial question (helps exit the program)
-    int startCap; //starting capacity of the vector
+    int startCap; //starting capacity of the vector hello
 
     //prompts user if they want to proceed
     cout << "\ndo you want to create a vector? (y/n): ";
