@@ -4,3 +4,4 @@ This is a simple C++ program that creates a Vector Class and prompts the user fo
 - OOP
 - input/ouput
 - pointers
+- makefile
